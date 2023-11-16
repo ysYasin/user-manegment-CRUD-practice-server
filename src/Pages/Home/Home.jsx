@@ -1,12 +1,13 @@
 import { data } from "autoprefixer";
 import { useEffect, useState } from "react";
-import { FaPen, FaTrashAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaArrowLeft, FaPen, FaTrashAlt } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
   let count = 1;
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:5300/users")
@@ -48,6 +49,25 @@ const Home = () => {
 
   return (
     <div>
+      <div className="text-center py-4 pt-7">
+        <h1 className="text-center text-5xl font-semibold">User List</h1>
+        <p className="text-slate-400">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed eligendi
+          nulla in natus animi,
+        </p>
+
+        <div className="w-[70%] mx-auto">
+          <button
+            className="flex bg-fuchsia-300 py-2 px-4 rounded-md hover:bg-fuchsia-400 gap-2 items-center"
+            onClick={() => {
+              navigate("/add-user");
+            }}
+          >
+            {" "}
+            <FaArrowLeft /> Add User
+          </button>
+        </div>
+      </div>
       <div className="overflow-x-auto mx-auto my-10 w-[90%]">
         <table className="table">
           {/* head */}
@@ -77,7 +97,7 @@ const Home = () => {
                   <td className="flex items-center">
                     {" "}
                     <div className="flex items-center gap-2">
-                      <Link to={`user-eddit/${user._id}`}>
+                      <Link to={`edit-user/${user._id}`}>
                         {" "}
                         <button className="px-3 py-2 bg-slate-400 hover:bg-slate-700">
                           {" "}
